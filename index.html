@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Dynamic Title, set by seoUtils -->
+  <title>Own_writes - Your Modern Blogging Platform</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A full-featured blogging platform with AI-powered content tools, user management, and a modern UI. Discover, create, and share your stories.">
+  <meta name="keywords" content="blog, blogging, articles, own_writes, ai content, writing platform, content creation, technology, community, travel, guides">
+  <meta name="author" content="Own_writes Team">
+  <meta name="robots" content="index, follow">
+  <meta id="theme-color-meta" name="theme-color" content="#ffffff"> <!-- Default light theme color, will be updated by ThemeContext -->
+  <link id="canonical-link" rel="canonical" href="https://own-writes-app.com/"> <!-- Placeholder, will be updated by seoUtils -->
+
+  <!-- Favicon Placeholders - Replace with your actual favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- End Favicon Placeholders -->
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta id="og-url" property="og:url" content="https://own-writes-app.com/">
+  <meta id="og-title" property="og:title" content="Own_writes - Your Modern Blogging Platform">
+  <meta id="og-description" property="og:description" content="A full-featured blogging platform with AI-powered content tools. Discover, create, and share your stories.">
+  <meta id="og-image" property="og:image" content="https://picsum.photos/seed/default-og/1200/630"> <!-- Default OG image -->
+  <meta property="og:site_name" content="Own_writes">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta id="twitter-url" property="twitter:url" content="https://own-writes-app.com/"> <!-- Not a standard tag, but good for consistency -->
+  <meta id="twitter-title" name="twitter:title" content="Own_writes - Your Modern Blogging Platform">
+  <meta id="twitter-description" name="twitter:description" content="A full-featured blogging platform with AI-powered content tools. Discover, create, and share your stories.">
+  <meta id="twitter-image" name="twitter:image" content="https://picsum.photos/seed/default-og/1200/600"> <!-- Default Twitter image -->
+  <!-- <meta name="twitter:site" content="@yourtwitterhandle"> -->
+  <!-- <meta name="twitter:creator" content="@yourtwitterhandle"> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.1.3/24/outline/heroicons.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // Enable class-based dark mode
+      theme: {
+        extend: {
+          colors: {
+            'brand-bg': '#f9f9f9',
+            'brand-bg-dark': '#1e293b', // Lighter: slate-800
+            'brand-surface': '#ffffff',
+            'brand-surface-dark': '#334155', // Lighter: slate-700
+            'brand-text': '#2e2e2e',
+            'brand-text-dark': '#f1f5f9', // Lighter: slate-100
+            'brand-text-muted': '#6e6e6e',
+            'brand-text-muted-dark': '#94a3b8', // Lighter: slate-400
+            'brand-accent': '#0077cc',
+            'brand-accent-dark': '#00bfff',
+            'brand-highlight': '#ff6b6b',
+            'brand-highlight-dark': '#ff7f50',
+            'brand-border': '#e8e8e8',
+            'brand-border-dark': '#475569', // Lighter: slate-600
+
+            // Category colors
+            'cat-tech': '#0077cc',
+            'cat-health': '#3cb371',
+            'cat-motivation': '#ffb703',
+            'cat-lifestyle': '#d96c75',
+            'cat-travel': '#20c997',
+            'cat-finance': '#6f42c1',
+          },
+          fontFamily: {
+            display: ['Poppins', 'sans-serif'],
+            body: ['Open Sans', 'sans-serif'],
+          }
+        },
+      }
+    }
+  </script>
+<style>
+  :root {
+    --chart-text-color: theme('colors.brand-text-muted');
+    --chart-grid-color: theme('colors.brand-border');
+    --chart-bar-color: theme('colors.brand-accent');
+    --chart-tooltip-bg: theme('colors.brand-surface');
+    --chart-tooltip-text: theme('colors.brand-text');
+  }
+  html.dark {
+    --chart-text-color: theme('colors.brand-text-muted-dark');
+    --chart-grid-color: theme('colors.brand-border-dark');
+    --chart-bar-color: theme('colors.brand-accent-dark');
+    --chart-tooltip-bg: theme('colors.brand-surface-dark');
+    --chart-tooltip-text: theme('colors.brand-text-dark');
+  }
+  body {
+    background-color: theme('colors.brand-bg');
+    color: theme('colors.brand-text');
+    font-family: theme('fontFamily.body');
+  }
+  html.dark body {
+    background-color: theme('colors.brand-bg-dark');
+    color: theme('colors.brand-text-dark');
+  }
+
+  .prose h1 {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem;
+    font-weight: 800;
+    color: theme('colors.brand-text');
+    font-family: theme('fontFamily.display');
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  .prose h2 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: theme('colors.brand-text');
+    font-family: theme('fontFamily.display');
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  .prose h3 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem;
+    font-weight: 600;
+    color: theme('colors.brand-text');
+    font-family: theme('fontFamily.display');
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  .prose h4 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: theme('colors.brand-text');
+    font-family: theme('fontFamily.display');
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  html.dark .prose h1,
+  html.dark .prose h2,
+  html.dark .prose h3,
+  html.dark .prose h4 {
+    color: theme('colors.brand-text-dark');
+  }
+
+  .prose p, .prose li {
+    color: theme('colors.brand-text-muted');
+    line-height: 1.8;
+  }
+  html.dark .prose p, html.dark .prose li {
+    color: theme('colors.brand-text-muted-dark');
+  }
+  .prose blockquote {
+     color: theme('colors.brand-text-muted');
+     border-left-color: theme('colors.brand-accent');
+     font-family: theme('fontFamily.body');
+     font-style: italic;
+  }
+  html.dark .prose blockquote {
+     color: theme('colors.brand-text-muted-dark');
+     border-left-color: theme('colors.brand-accent-dark');
+  }
+  .prose a {
+    color: theme('colors.brand-accent');
+    text-decoration: none;
+    font-weight: 600;
+  }
+  html.dark .prose a {
+    color: theme('colors.brand-accent-dark');
+  }
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  .prose strong {
+    color: theme('colors.brand-text');
+    font-weight: 700;
+  }
+  html.dark .prose strong {
+    color: theme('colors.brand-text-dark');
+  }
+  .prose code {
+    color: theme('colors.brand-highlight');
+    background-color: theme('colors.brand-highlight/10');
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    border-radius: 6px;
+    font-family: monospace;
+  }
+  html.dark .prose code {
+    color: theme('colors.brand-highlight-dark');
+    background-color: theme('colors.brand-highlight-dark/10');
+  }
+  .prose pre {
+    background-color: #282c34; /* A common dark theme for code blocks */
+    color: #abb2bf;
+    border-radius: 0.5rem;
+    padding: 1.25em;
+    overflow-x: auto;
+    font-family: monospace;
+  }
+  html.dark .prose pre {
+    background-color: #282c34;
+    color: #abb2bf;
+  }
+
+  /* Style for images inserted into the editor content */
+  .prose .img-container {
+    position: relative;
+    line-height: 0; /* a "clearfix" for the float */
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  /* clearfix */
+  .prose .img-container::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .prose .img-container.align-left { float: left; margin-right: 1.5em; }
+  .prose .img-container.align-center { display: block; margin-left: auto; margin-right: auto; float: none; text-align: center; }
+  .prose .img-container.align-right { float: right; margin-left: 1.5em; }
+  
+  .prose .img-container.size-sm { max-width: 33.33%; }
+  .prose .img-container.size-md { max-width: 66.66%; }
+  .prose .img-container.size-full { max-width: 100%; }
+
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem; /* 8px */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    display: inline-block; /* To respect container's text-align for center */
+  }
+
+  html.dark .prose img {
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+  }
+
+  .prose[contenteditable=true]:empty:before {
+    content: attr(data-placeholder);
+    color: theme('colors.brand-text-muted');
+    display: block;
+    cursor: text;
+  }
+
+  .fancy-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .fancy-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .fancy-scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
+  html.dark .fancy-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569; /* slate-600 */
+  }
+  .fancy-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+  html.dark .fancy-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* slate-500 */
+  }
+  
+  /* Global Animations & Effects */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideInUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .page-content-enter {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .card-lift-hover {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+  .card-lift-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  }
+  html.dark .card-lift-hover:hover {
+    box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.23.1?deps=react@18.2.0",
+    "recharts": "https://esm.sh/recharts@2.12.7?deps=react@18.2.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "@heroicons/react/24/outline": "https://esm.sh/@heroicons/react@2.2.0/24/outline?deps=react@18.2.0",
+    "@heroicons/react/24/solid": "https://esm.sh/@heroicons/react@2.2.0/24/solid?deps=react@18.2.0",
+    "@heroicons/react/": "https://esm.sh/@heroicons/react@2.2.0/?deps=react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.7.0"
+  }
+}
+</script>
+<!-- Babel Standalone for in-browser transpilation -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-brand-bg text-brand-text font-body antialiased dark:bg-brand-bg-dark dark:text-brand-text-dark">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="env,react,typescript" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
