@@ -332,7 +332,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blogId }) => {
         </div>
       </header>
       
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-10 md:py-12">
+      <div className="max-w-full lg:max-w-5xl mx-auto px-2 sm:px-4 lg:px-0 py-10 md:py-12">
         <div className="lg:grid lg:grid-cols-12 lg:gap-12">
             <aside className="hidden lg:block lg:col-span-3"><TableOfContents items={tocItems} /></aside>
             <main className="lg:col-span-9">
