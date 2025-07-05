@@ -336,7 +336,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blogId }) => {
         <div className="lg:grid lg:grid-cols-12 lg:gap-12">
             <aside className="hidden lg:block lg:col-span-3"><TableOfContents items={tocItems} /></aside>
             <main className="lg:col-span-9">
-              <div className="bg-brand-surface dark:bg-brand-surface-dark p-4 sm:p-6 md:p-8 rounded-xl shadow-lg border border-brand-border dark:border-brand-border-dark">
+              <div className="bg-brand-surface dark:bg-brand-surface-dark p-2 sm:p-6 md:p-6 rounded-xl shadow-lg border border-brand-border dark:border-brand-border-dark">
                 <div className="mb-8 pb-6 border-b border-brand-border dark:border-brand-border-dark flex flex-wrap items-center justify-start gap-3">
                     <ReactionsControl post={post} setPost={setPost} />
                     <Button onClick={handleToggleTTS} variant="ghost" size="sm" className="!text-brand-text-muted" leftIcon={isSpeaking ? <SpeakerXMarkIcon className="h-5 w-5"/> : <SpeakerWaveIcon className="h-5 w-5"/>}> {isSpeaking ? 'Stop' : 'Listen'} </Button>
