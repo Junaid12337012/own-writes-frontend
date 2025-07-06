@@ -3,6 +3,7 @@
 import React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import { APP_NAME } from '../../constants';
+import LogoImg from '../../Logo/LOGO.png';
 import Button from '../Common/Button';
 import { useNotification } from '../../contexts/NotificationContext';
 // Using a generic ShareIcon as specific brand icons are not in heroicons/outline.
@@ -39,9 +40,12 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10">
           
           <div className="md:col-span-4">
-            <h3 className="text-2xl font-display font-bold text-brand-text dark:text-brand-text-dark mb-4">
-              {APP_NAME}
-            </h3>
+            <div className="mb-4">
+              {/* Light mode logo */}
+              <img src={LogoImg} alt={APP_NAME + ' logo'} className="h-12 md:h-14 w-auto block dark:hidden" />
+              {/* Dark mode logo (inverted) */}
+              <img src={LogoImg} alt={APP_NAME + ' logo dark'} className="h-12 md:h-14 w-auto hidden dark:block filter invert" />
+            </div>
             <p className="text-sm mb-6 pr-4">
               Explore the world through stories. AI-powered tools for modern creators and adventurers.
             </p>

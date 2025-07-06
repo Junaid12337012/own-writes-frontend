@@ -1,6 +1,7 @@
 
 
 import React, { useState, useEffect, useRef } from 'react';
+import LogoImg from '../../Logo/LOGO.png';
 import * as ReactRouterDOM from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { APP_NAME, DEFAULT_PROFILE_PICTURE } from '../../constants';
@@ -226,8 +227,11 @@ const Navbar: React.FC = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-surface/90 dark:bg-brand-surface-dark/90 shadow-md backdrop-blur-sm border-b border-brand-border/50 dark:border-brand-border-dark/50' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20"> 
-          <ReactRouterDOM.Link to="/" className={`text-2xl md:text-3xl font-display font-bold transition-colors text-brand-text dark:text-brand-text-dark hover:text-brand-accent dark:hover:text-brand-accent-dark`}>
-            {APP_NAME}
+          <ReactRouterDOM.Link to="/" className="flex items-center" aria-label={APP_NAME}>
+            {/* Light mode logo */}
+            <img src={LogoImg} alt={APP_NAME + ' logo'} className="h-10 md:h-12 w-auto block dark:hidden" />
+            {/* Dark mode logo (inverted for better contrast) */}
+            <img src={LogoImg} alt={APP_NAME + ' logo dark'} className="h-10 md:h-12 w-auto hidden dark:block filter invert" />
           </ReactRouterDOM.Link>
 
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
