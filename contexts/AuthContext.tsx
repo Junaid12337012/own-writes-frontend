@@ -16,7 +16,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   signup: (username: string, email: string, password: string) => Promise<void>;
   logout: () => void;
-  googleLogin: () => Promise<void>;
+  setAuth: (user: User, token: string) => void;
   followAuthor: (authorId: string) => Promise<void>;
   unfollowAuthor: (authorId: string) => Promise<void>;
   updateUserContext: (newUser: User) => void;
@@ -89,10 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     console.log('Logged out.');
   };
 
-  const googleLogin = async () => {
-    // Placeholder: Simulate Google login
-    console.log('Google login attempted (placeholder)');
-  };
+
 
 
   const updateUserContext = (newUser: User) => {
@@ -135,6 +132,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // -------------------- Provide Context --------------------
 
+  const setAuth = (user: User, token: string) => {
+    setUser(user);
+    setToken(token);
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -143,7 +147,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         signup,
         logout,
-        googleLogin,
+        setAuth,
         followAuthor,
         unfollowAuthor,
         updateUserContext,

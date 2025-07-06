@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext';
@@ -16,12 +17,14 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <NotificationProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </NotificationProvider>
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId="368335960912-gq3e1nk2ir2o21bl1qaqckh1jeudgtj4.apps.googleusercontent.com">
+      <ThemeProvider>
+        <NotificationProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </NotificationProvider>
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
