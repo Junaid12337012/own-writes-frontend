@@ -7,6 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { XMarkIcon, MagnifyingGlassIcon, GlobeAltIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { apiService } from '../../services/mockApiService';
+import { searchBlogsFullText as backendSearchBlogs } from '../../services/blogService';
 import { geminiService } from '../../services/geminiService';
 import { BlogPost, WebSearchResult } from '../../types';
 import { useNotification } from '../../contexts/NotificationContext';
@@ -52,7 +53,8 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ onClose }) => {
 
     try {
         if (activeTab === 'blog') {
-            const filteredResults = await apiService.searchBlogsFullText(term);
+            const searchFn = import.meta.env.VITE_API_URL ? backendSearchBlogs : apiService.searchBlogsFullText;
+            const filteredResults = await searchFn(term);
             setBlogResults(filteredResults);
             setWebResult(null);
         } else { // activeTab === 'web'
