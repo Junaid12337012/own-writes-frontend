@@ -17,7 +17,7 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="368335960912-gq3e1nk2ir2o21bl1qaqckh1jeudgtj4.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <ThemeProvider>
         <NotificationProvider>
           <AuthProvider>
