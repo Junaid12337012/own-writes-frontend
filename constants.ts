@@ -1,6 +1,5 @@
-
 export const APP_NAME = "Own_writes";
-export const GOOGLE_CLIENT_ID = "680039816790-q52cvolg5kbr40tep06djvk0vf4me72k.apps.googleusercontent.com"; // Updated client ID
+export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
 export const DEFAULT_PROFILE_PICTURE = "https://picsum.photos/seed/profile/100/100";
 export const DEFAULT_FEATURED_IMAGE = "https://picsum.photos/seed/default-post/800/400";
 export const DEFAULT_OG_IMAGE = "https://picsum.photos/seed/default-og/1200/630"; // Default OG image for social sharing

@@ -35,7 +35,7 @@ const TermsOfServicePage: React.FC = () => {
         <div className="bg-brand-surface dark:bg-brand-surface-dark p-8 sm:p-12 rounded-2xl shadow-xl border border-brand-border dark:border-brand-border-dark">
           <Section title="1. Acceptance of Terms" icon={InformationCircleIcon}>
             <p>By accessing or using {APP_NAME} (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of the terms, then you may not access the Service.</p>
-            <p>This is a placeholder document. The actual terms would be much more detailed and legally reviewed.</p>
+            <p>These Terms constitute a legally binding agreement between you and OwnWrites Inc. By continuing to access or use the Service after changes become effective, you agree to be bound by the revised Terms.</p>
           </Section>
 
           <Section title="2. User Accounts" icon={UserGroupIcon}>
@@ -59,7 +59,7 @@ const TermsOfServicePage: React.FC = () => {
           </Section>
         </div>
         <div className="mt-12 text-center text-sm text-brand-text-muted dark:text-brand-text-muted-dark">
-          This is a template Terms of Service. Please consult with a legal professional.
+          © {new Date().getFullYear()} OwnWrites Inc.  All rights reserved.
         </div>
       </div>
     </div>

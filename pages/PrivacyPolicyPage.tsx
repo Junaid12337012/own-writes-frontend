@@ -36,7 +36,7 @@ const PrivacyPolicyPage: React.FC = () => {
           <Section title="1. Introduction" icon={UserCircleIcon}>
             <p>{APP_NAME} ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services (collectively, the "Service").</p>
             <p>Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
-            <p>This is a placeholder document. The actual policy would be much more detailed and legally reviewed.</p>
+            <p>We update this Policy from time to time to reflect changes in our practices or relevant laws. When we do, we will revise the “Last updated” date above and, where appropriate, notify you via email or in-app notice.</p>
           </Section>
 
           <Section title="2. Information We Collect" icon={VariableIcon}>
@@ -69,7 +69,7 @@ const PrivacyPolicyPage: React.FC = () => {
         </div>
         
         <div className="mt-12 text-center text-sm text-brand-text-muted dark:text-brand-text-muted-dark">
-          This is a template Privacy Policy. Please consult with a legal professional.
+          © {new Date().getFullYear()} OwnWrites Inc.  All rights reserved.
         </div>
       </div>
     </div>
