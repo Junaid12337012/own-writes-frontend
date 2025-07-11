@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
-import { Comment, User } from '../../types';
+import { Comment } from '../../types';
 import * as commentService from '../../services/commentService';
 import Button from '../Common/Button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -13,7 +13,8 @@ interface CommentSectionProps {
   blogPostId: string;
 }
 
-const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, userName: string) => void; currentUser: User | null }> = ({ comment, onReply, currentUser }) => {
+type AuthUser = ReturnType<typeof useAuth>["user"]; // derives the user type from AuthContext
+const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, userName: string) => void; currentUser: AuthUser }> = ({ comment, onReply, currentUser }) => {
   const { addToast } = useNotification();
   const [showReplies, setShowReplies] = useState(false);
   
@@ -88,13 +89,13 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogPostId }) => {
     try {
       const fetchedComments = await commentService.fetchComments(blogPostId);
       const commentsWithReplies = fetchedComments
-        .filter(c => !c.parentId && !c.reported)
-        .map(parent => ({
+        .filter((c: Comment) => !c.parentId && !c.reported)
+        .map((parent: Comment) => ({
           ...parent,
           replies: fetchedComments
-            .filter(reply => reply.parentId === parent.id && !reply.reported && reply.id !== parent.id)
-            .sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()) 
-        })).sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()); 
+            .filter((reply: Comment) => reply.parentId === parent.id && !reply.reported && reply.id !== parent.id)
+            .sort((a: Comment, b: Comment) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()) 
+        })).sort((a: Comment, b: Comment) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()); 
       setComments(commentsWithReplies);
     } catch (error) {
       console.error("Failed to fetch comments:", error);

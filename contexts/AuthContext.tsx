@@ -3,12 +3,12 @@ import * as authService from '../services/authService';
 
 // -------------------- Types --------------------
 
-interface User {
-  _id: string;
-  username: string;
-  email: string;
-  role: 'user' | 'admin';
-  profilePictureUrl?: string;
+import { User as SharedUser } from '../types';
+
+// Extend the shared User with the backend-specific _id property and make id optional since we add it client-side
+export interface User extends Omit<SharedUser, 'id'> {
+  _id: string; // original identifier from backend
+  id?: string; // will be added client-side for compatibility
 }
 
 interface AuthContextType {

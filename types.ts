@@ -14,8 +14,8 @@ export interface User {
   role: UserRole;
   bio?: string;
   profilePictureUrl?: string; // URL to profile picture
-  following: string[]; // Array of author IDs the user is following
-  createdAt: string; // ISO Date string for analytics
+  following?: string[]; // Array of author IDs the user is following
+  createdAt?: string; // ISO Date string for analytics
 }
 
 export const ReactionTypes = {
