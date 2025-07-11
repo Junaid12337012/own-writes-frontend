@@ -17,6 +17,20 @@ export async function postComment(blogId: string, content: string, parentId?: st
 }
 
 export async function reportComment(commentId: string, reporterId: string) {
-  const res = await axios.post(`/comments/report/${commentId}`, { reporterId });
-  return res.data;
+  try {
+    const res = await axios.post(`/comments/report/${commentId}`, { reporterId });
+    return res.data;
+  } catch (error) {
+    try {
+      const res = await axios.post(`/comments/${commentId}/report`, { reporterId });
+      return res.data;
+    } catch (error) {
+      try {
+        const res = await axios.post(`/report-comment/${commentId}`, { reporterId });
+        return res.data;
+      } catch (error) {
+        throw error;
+      }
+    }
+  }
 }
