@@ -8,6 +8,7 @@ interface User {
   username: string;
   email: string;
   role: 'user' | 'admin';
+  profilePictureUrl?: string;
 }
 
 interface AuthContextType {
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       setToken(token);
     // Always use _id as id for consistency
-    const safeUser = { ...user, id: user._id };
+    const safeUser = { ...user, id: user._id, profilePictureUrl: user.profilePictureUrl };
     setUser(safeUser);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(safeUser));
@@ -133,6 +134,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // -------------------- Provide Context --------------------
 
   const setAuth = (user: User, token: string) => {
+    if (user && !('profilePictureUrl' in user)) {
+      // fallback to default if backend omitted
+      (user as any).profilePictureUrl = '';
+    }
     setUser(user);
     setToken(token);
     localStorage.setItem('token', token);
