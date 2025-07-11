@@ -3,7 +3,12 @@ import axios from './axios';
 export async function fetchComments(blogId: string) {
   const res = await axios.get(`/comments/blog/${blogId}`);
   // Normalize each comment to ensure it has an `id` field (backend returns `_id`)
-  const normalized = res.data.comments.map((c: any) => ({ ...c, id: c.id || c._id }));
+  const normalized = res.data.comments.map((c: any) => ({
+    ...c,
+    id: c.id || c._id,
+    userName: c.userName || c.author?.username || c.user?.username || c.authorName || '',
+    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.user?.profilePictureUrl || undefined,
+  }));
   return normalized;
 }
 
