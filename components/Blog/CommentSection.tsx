@@ -15,21 +15,7 @@ interface CommentSectionProps {
 
 type AuthUser = ReturnType<typeof useAuth>["user"]; // derives the user type from AuthContext
 const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, userName: string) => void; currentUser: AuthUser }> = ({ comment, onReply, currentUser }) => {
-  const { addToast } = useNotification();
   const [showReplies, setShowReplies] = useState(false);
-  
-  const handleReportComment = async () => {
-    if (!currentUser) {
-      addToast({ message: "You need to be logged in to report comments.", type: "warning" });
-      return;
-    }
-    try {
-      await commentService.reportComment(comment.id, currentUser.id || currentUser._id);
-      addToast({ message: "Comment reported for review.", type: "success" });
-    } catch (error) {
-      addToast({ message: "Failed to report comment.", type: "error" });
-    }
-  };
 
   return (
     <div className={`py-4 ${comment.parentId ? 'ml-6 sm:ml-8 pl-3 border-l-2 border-brand-border dark:border-brand-border-dark' : ''}`}>
@@ -48,12 +34,11 @@ const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, user
           <div className="text-brand-text-muted dark:text-brand-text-muted-dark mt-1 prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
           <div className="mt-2 space-x-3 text-xs">
             {currentUser && <button onClick={() => onReply(comment.id, comment.userName)} className="font-medium text-brand-accent dark:text-brand-accent-dark hover:text-brand-accent/80 dark:hover:text-brand-accent-dark/80 hover:underline">Reply</button>}
-            {comment.replies && comment.replies.length > 0 && (
-              <button onClick={() => setShowReplies(!showReplies)} className="font-medium text-brand-text-muted dark:text-brand-text-muted-dark hover:text-brand-text dark:hover:text-brand-text-dark">
-                {showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-              </button>
-            )}
-             <button onClick={handleReportComment} className="font-medium text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">Report</button>
+             {comment.replies && comment.replies.length > 0 && (
+               <button onClick={() => setShowReplies(!showReplies)} className="font-medium text-brand-text-muted dark:text-brand-text-muted-dark hover:text-brand-text dark:hover:text-brand-text-dark">
+                 {showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
+               </button>
+             )}
           </div>
         </div>
       </div>

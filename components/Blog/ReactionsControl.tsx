@@ -18,9 +18,9 @@ const ReactionsControl: React.FC<ReactionsControlProps> = ({ post, setPost }) =>
   const timerRef = React.useRef<number | null>(null);
 
   const userReaction = useMemo(() => {
-    if (!user) return null;
+    if (!user || !user.id) return null;
     for (const type in post.reactions) {
-      if (post.reactions[type as ReactionType]?.includes(user.id)) {
+      if (post.reactions[type as ReactionType]?.includes(user.id as string)) {
         return type as ReactionType;
       }
     }
