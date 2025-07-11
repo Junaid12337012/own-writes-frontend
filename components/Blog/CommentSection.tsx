@@ -24,7 +24,7 @@ const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, user
       return;
     }
     try {
-      await commentService.reportComment(comment.id, currentUser.id);
+      await commentService.reportComment(comment.id, currentUser.id || currentUser._id);
       addToast({ message: "Comment reported for review.", type: "success" });
     } catch (error) {
       addToast({ message: "Failed to report comment.", type: "error" });
