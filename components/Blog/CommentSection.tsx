@@ -24,8 +24,7 @@ const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, user
       return;
     }
     try {
-      // TODO: implement report comment endpoint
-      addToast({message:'Report feature coming soon.',type:'info'});
+      await commentService.reportComment(comment.id, currentUser.id);
       addToast({ message: "Comment reported for review.", type: "success" });
     } catch (error) {
       addToast({ message: "Failed to report comment.", type: "error" });

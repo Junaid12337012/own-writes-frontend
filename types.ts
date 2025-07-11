@@ -91,7 +91,7 @@ export interface Notification {
     username: string;
     profilePictureUrl?: string;
   };
-  type: 'reaction' | 'comment' | 'reply' | 'follow';
+  type: 'reaction' | 'comment' | 'reply' | 'follow' | 'report';
   message: string; // The generated message for display
   link: string; // The URL to navigate to (e.g., #/blog/post-id)
   read: boolean;

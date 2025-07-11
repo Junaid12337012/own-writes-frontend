@@ -609,12 +609,31 @@ export const apiService = {
     _saveDb();
     return Promise.resolve(newComment);
   },
-  reportComment: async (commentId: string): Promise<void> => {
-    const commentIndex = db.comments.findIndex(c => c.id === commentId);
-    if(commentIndex > -1){
-        db.comments[commentIndex].reported = true;
-        _saveDb();
-    }
+  reportComment: async (commentId: string, reporterId: string): Promise<void> => {
+    const comment = db.comments.find(c => c.id === commentId);
+    if (!comment) return Promise.resolve();
+    comment.reported = true;
+
+    // Notify all admins
+    const admins = db.users.filter(u => u.role === UserRole.ADMIN);
+    admins.forEach(admin => {
+      const newNotification: Notification = {
+        id: generateId(),
+        recipientId: admin.id,
+        actor: {
+          id: reporterId,
+          username: db.users.find(u => u.id === reporterId)?.username || 'Someone',
+        },
+        type: 'report',
+        message: `A comment on post "${comment.blogPostId}" has been reported for review.`,
+        link: `#/admin/reported-comments`,
+        read: false,
+        createdAt: new Date().toISOString(),
+      };
+      db.notifications.push(newNotification);
+    });
+
+    _saveDb();
     return Promise.resolve();
   },
   getReportedComments: async(): Promise<Comment[]> => {
