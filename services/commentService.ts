@@ -17,6 +17,6 @@ export async function postComment(blogId: string, content: string, parentId?: st
 }
 
 export async function reportComment(commentId: string, reporterId: string) {
-  const res = await axios.post(`/comments/${commentId}/report`, { reporterId });
+  const res = await axios.post(`/comments/report/${commentId}`, { reporterId });
   return res.data;
 }
