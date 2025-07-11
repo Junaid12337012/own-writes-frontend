@@ -92,7 +92,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogPostId }) => {
         .map(parent => ({
           ...parent,
           replies: fetchedComments
-            .filter(reply => reply.parentId === parent.id && !reply.reported)
+            .filter(reply => reply.parentId === parent.id && !reply.reported && reply.id !== parent.id)
             .sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()) 
         })).sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()); 
       setComments(commentsWithReplies);
