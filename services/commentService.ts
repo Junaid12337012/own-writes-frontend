@@ -7,7 +7,7 @@ export async function fetchComments(blogId: string) {
     ...c,
     id: c.id || c._id,
     userName: c.userName || c.author?.username || c.user?.username || c.authorName || '',
-    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.user?.profilePictureUrl || undefined,
+    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.author?.picture || c.user?.profilePictureUrl || c.user?.picture || undefined,
   }));
   return normalized;
 }
@@ -17,7 +17,23 @@ export async function postComment(blogId: string, content: string, parentId?: st
   if (parentId) payload.parentId = parentId;
   const res = await axios.post('/comments', payload);
   // Normalize the returned comment to ensure it has an `id` field (backend returns `_id`)
-  const normalized = { ...res.data.comment, id: res.data.comment.id || res.data.comment._id };
+  const normalized = {
+    ...res.data.comment,
+    id: res.data.comment.id || res.data.comment._id,
+    userName:
+      res.data.comment.userName ||
+      res.data.comment.author?.username ||
+      res.data.comment.user?.username ||
+      res.data.comment.authorName ||
+      '',
+    userProfilePictureUrl:
+      res.data.comment.userProfilePictureUrl ||
+      res.data.comment.author?.profilePictureUrl ||
+      res.data.comment.author?.picture ||
+      res.data.comment.user?.profilePictureUrl ||
+      res.data.comment.user?.picture ||
+      undefined,
+  };
   return normalized;
 }
 
