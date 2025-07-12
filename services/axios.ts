@@ -6,11 +6,23 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+// Store password in memory only
+let currentPassword: string | null = null;
+
+// Function to set password
+export function setPassword(password: string) {
+  currentPassword = password;
+}
+
+// Clear password when needed
+export function clearPassword() {
+  currentPassword = null;
+}
+
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
+  if (currentPassword) {
     config.headers = config.headers || {};
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['X-Auth-Password'] = currentPassword;
   }
   return config;
 });
