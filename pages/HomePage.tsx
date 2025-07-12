@@ -47,38 +47,22 @@ const HomePage: React.FC = () => {
       
       setAllPublishedPosts(publishedPosts);
       
-      // Popular Posts (by reactions)
-      const getTotalReactions = (post: BlogPost) => Object.values(post.reactions || {}).reduce((sum, users) => sum + (users?.length || 0), 0);
-      const sortedByLikes = [...publishedPosts].sort((a,b) => getTotalReactions(b) - getTotalReactions(a));
-      const popular = sortedByLikes.slice(0, 3);
-      setPopularPosts(popular);
-
-      const popularIds = new Set(popular.map(p => p.id));
-      const remainingPosts = publishedPosts.filter(p => !popularIds.has(p.id));
-
-      // Latest Podcasts
-      const podcasts = remainingPosts.filter(p => p.postType === 'podcast').slice(0, 3);
-      setLatestPodcasts(podcasts);
-      
-      // Latest Articles (filter out podcasts already shown)
-      const podcastIds = new Set(podcasts.map(p => p.id));
-      const articles = remainingPosts.filter(p => p.postType !== 'podcast' && !podcastIds.has(p.id)).slice(0, POSTS_PER_SECTION);
-      setLatestArticles(articles);
-
     } catch (error) {
       console.error("Failed to fetch blog data:", error);
       addToast({ message: 'Could not load blog posts. Please try again later.', type: 'error' });
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   }, [addToast]);
 
   useEffect(() => {
-    fetchBlogData().catch(error => {
-      console.error('Failed to fetch blog data:', error);
-      addToast({ message: 'Failed to load blog posts. Please try again later.', type: 'error' });
-    });
-  }, [fetchBlogData, addToast]);
+    fetchBlogData();
+  }, [fetchBlogData]);
+
+  // Memoize and set sections once all posts are loaded
+  useEffect(() => {
+    if (loading) return;
+
+    // Popular Posts (by reactions)
     const getTotalReactions = (post: BlogPost) => Object.values(post.reactions || {}).reduce((sum, users) => sum + (users?.length || 0), 0);
     const sortedByLikes = [...allPublishedPosts].sort((a,b) => getTotalReactions(b) - getTotalReactions(a));
     const popular = sortedByLikes.slice(0, 3);

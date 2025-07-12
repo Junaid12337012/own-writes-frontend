@@ -22,18 +22,61 @@ function transformBlog(b: BackendBlog): any {
   };
 }
 
+// ---- Blog Cache Helpers ----
+const BLOG_CACHE_KEY = 'cached_blogs_v1';
+const BLOG_CACHE_TIME_KEY = 'cached_blogs_updated_v1';
+
+function readBlogCache(): any[] | null {
+  try {
+    const raw = localStorage.getItem(BLOG_CACHE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (err) {
+    console.warn('Could not parse blog cache', err);
+    return null;
+  }
+}
+
+function writeBlogCache(blogs: any[]) {
+  try {
+    localStorage.setItem(BLOG_CACHE_KEY, JSON.stringify(blogs));
+    localStorage.setItem(BLOG_CACHE_TIME_KEY, Date.now().toString());
+  } catch (err) {
+    console.warn('Could not write blog cache', err);
+  }
+}
+
 
 
 export async function clearBlogsCache() {
   localStorage.removeItem(BLOG_CACHE_KEY);
   localStorage.removeItem(BLOG_CACHE_TIME_KEY);
+}
+
 export async function fetchBlogs(): Promise<any[]> {
+  // 1. Return cache immediately if present
+  const cache = readBlogCache();
+  if (cache && cache.length) {
+    // Return whatever we have immediately
+    refreshBlogsInBackground(); // update silently
+    return cache;
+  }
+
+  // 2. Fetch from backend (may take time)
   try {
-    const { data } = await axios.get('/api/blogs');
-    return data.map(transformBlog);
-  } catch (error) {
-    console.error('Failed to fetch blogs:', error);
-    return [];
+    const res = await axios.get('/blogs');
+    const fresh = res.data.blogs.map((b: BackendBlog) => transformBlog(b));
+    writeBlogCache(fresh);
+    return fresh;
+  } catch (err) {
+    console.error('Failed to fetch blogs from backend', err);
+    // 3. If network fails, fallback to any stale cache
+    if (cache && cache.length) {
+      return cache;
+    }
+    // Re-throw if absolutely nothing to serve
+    throw err;
+  }
 }
 
 async function refreshBlogsInBackground() {
