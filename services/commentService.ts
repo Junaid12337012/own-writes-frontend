@@ -1,4 +1,14 @@
 import axios from './axios';
+import { DEFAULT_PROFILE_PICTURE } from '../constants';
+
+// Build full URL for profile image if backend returns a relative path
+const buildProfileUrl = (url?: string): string | undefined => {
+  if (!url) return undefined;
+  if (/^(https?:|data:)/.test(url)) return url;
+  const base = import.meta.env.VITE_API_BASE_URL || '';
+  const normalized = url.startsWith('/') ? url : `/${url}`;
+  return `${base}${normalized}`;
+};
 
 export async function fetchComments(blogId: string) {
   const res = await axios.get(`/comments/blog/${blogId}`);
@@ -7,7 +17,7 @@ export async function fetchComments(blogId: string) {
     ...c,
     id: c.id || c._id,
     userName: c.userName || c.author?.username || c.user?.username || c.authorName || '',
-    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.author?.picture || c.user?.profilePictureUrl || c.user?.picture || undefined,
+    userProfilePictureUrl: buildProfileUrl(c.userProfilePictureUrl || c.author?.profilePictureUrl || c.author?.picture || c.user?.profilePictureUrl || c.user?.picture) || DEFAULT_PROFILE_PICTURE,
   }));
   return normalized;
 }
@@ -26,13 +36,13 @@ export async function postComment(blogId: string, content: string, parentId?: st
       res.data.comment.user?.username ||
       res.data.comment.authorName ||
       '',
-    userProfilePictureUrl:
+    userProfilePictureUrl: buildProfileUrl(
       res.data.comment.userProfilePictureUrl ||
       res.data.comment.author?.profilePictureUrl ||
       res.data.comment.author?.picture ||
       res.data.comment.user?.profilePictureUrl ||
-      res.data.comment.user?.picture ||
-      undefined,
+      res.data.comment.user?.picture
+    ) || DEFAULT_PROFILE_PICTURE,
   };
   return normalized;
 }
