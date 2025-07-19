@@ -7,17 +7,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNotification } from '../../contexts/NotificationContext';
 import { PaperAirplaneIcon, SparklesIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_PROFILE_PICTURE } from '../../constants';
-
-// Helper to build full URL for profile images (handles relative paths)
-const getProfileImage = (url?: string): string => {
-  if (!url) return DEFAULT_PROFILE_PICTURE;
-  // If already absolute (http, https, data) return as-is
-  if (/^(https?:|data:)/.test(url)) return url;
-  const base = import.meta.env.VITE_API_BASE_URL || '';
-  // Ensure single slash between base and relative path
-  const normalized = url.startsWith('/') ? url : `/${url}`;
-  return `${base}${normalized}`;
-};
 import { geminiService } from '../../services/geminiService';
 
 interface CommentSectionProps {
@@ -32,7 +21,7 @@ const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, user
     <div className={`py-4 ${comment.parentId ? 'ml-6 sm:ml-8 pl-3 border-l-2 border-brand-border dark:border-brand-border-dark' : ''}`}>
       <div className="flex items-start space-x-3 sm:space-x-3.5">
         <img 
-            src={getProfileImage(comment.userProfilePictureUrl)} 
+            src={comment.userProfilePictureUrl || DEFAULT_PROFILE_PICTURE} 
             alt={comment.userName} 
             className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover shadow-sm"
             onError={(e) => (e.currentTarget.src = DEFAULT_PROFILE_PICTURE)}
@@ -192,7 +181,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogPostId }) => {
         <form onSubmit={handleSubmitComment} className="mb-8">
           <div className="flex items-start space-x-3 sm:space-x-3.5">
             <img 
-                src={getProfileImage(user.profilePictureUrl)} 
+                src={user.profilePictureUrl || DEFAULT_PROFILE_PICTURE} 
                 alt={user.username} 
                 className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover shadow-sm"
                 onError={(e) => (e.currentTarget.src = DEFAULT_PROFILE_PICTURE)}
