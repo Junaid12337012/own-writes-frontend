@@ -7,7 +7,7 @@ export async function fetchComments(blogId: string) {
     ...c,
     id: c.id || c._id,
     userName: c.userName || c.author?.username || c.user?.username || c.authorName || '',
-    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.author?.picture || c.user?.profilePictureUrl || c.user?.picture || undefined,
+    userProfilePictureUrl: c.userProfilePictureUrl || c.author?.profilePictureUrl || c.author?.picture || c.author?.profilePicture || c.user?.profilePictureUrl || c.user?.picture || c.user?.profilePicture || undefined,
   }));
   return normalized;
 }
@@ -30,8 +30,12 @@ export async function postComment(blogId: string, content: string, parentId?: st
       res.data.comment.userProfilePictureUrl ||
       res.data.comment.author?.profilePictureUrl ||
       res.data.comment.author?.picture ||
+      res.data.comment.author?.profilePicture ||
       res.data.comment.user?.profilePictureUrl ||
       res.data.comment.user?.picture ||
+      res.data.comment.user?.profilePicture ||
+      res.data.comment.author?.profilePicture ||
+      res.data.comment.user?.profilePicture ||
       undefined,
   };
   return normalized;

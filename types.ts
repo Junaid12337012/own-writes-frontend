@@ -69,6 +69,7 @@ export interface Comment {
   parentId?: string | null; // For replies
   replies?: Comment[]; // Nested replies
   reported?: boolean;
+  approved?: boolean;
 }
 
 export interface Bookmark {
