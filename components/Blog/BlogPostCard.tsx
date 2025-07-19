@@ -62,13 +62,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post }) => {
         {/* Footer: Author & Date */}
         <div className="mt-auto pt-4">
           <div className="flex items-center">
-            <ReactRouterDOM.Link to={`/author/${post.authorId}`} className="flex-shrink-0">
-              <img 
-                src={authorImage} 
-                alt={post.authorName} 
-                className="h-10 w-10 rounded-full object-cover mr-3 border-2 border-brand-surface dark:border-brand-surface-dark group-hover:border-brand-highlight/50 dark:group-hover:border-brand-highlight-dark/50 transition-colors"
-              />
-            </ReactRouterDOM.Link>
             <div>
               <ReactRouterDOM.Link to={`/author/${post.authorId}`} className="text-sm font-display font-semibold text-brand-text dark:text-brand-text-dark hover:text-brand-accent dark:hover:text-brand-accent-dark transition-colors">{post.authorName}</ReactRouterDOM.Link>
               <p className="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">{new Date(post.createdAt).toLocaleDateString()}</p>
