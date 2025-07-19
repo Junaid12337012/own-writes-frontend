@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNotification } from '../../contexts/NotificationContext';
 import { PaperAirplaneIcon, SparklesIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_PROFILE_PICTURE } from '../../constants';
+import { getProfileImage } from '../../utils/image';
 import { geminiService } from '../../services/geminiService';
 
 interface CommentSectionProps {
@@ -21,7 +22,7 @@ const CommentItem: React.FC<{ comment: Comment; onReply: (parentId: string, user
     <div className={`py-4 ${comment.parentId ? 'ml-6 sm:ml-8 pl-3 border-l-2 border-brand-border dark:border-brand-border-dark' : ''}`}>
       <div className="flex items-start space-x-3 sm:space-x-3.5">
         <img 
-            src={comment.userProfilePictureUrl || DEFAULT_PROFILE_PICTURE} 
+            src={getProfileImage(comment.userProfilePictureUrl)} 
             alt={comment.userName} 
             className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover shadow-sm"
             onError={(e) => (e.currentTarget.src = DEFAULT_PROFILE_PICTURE)}
@@ -181,7 +182,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ blogPostId }) => {
         <form onSubmit={handleSubmitComment} className="mb-8">
           <div className="flex items-start space-x-3 sm:space-x-3.5">
             <img 
-                src={user.profilePictureUrl || DEFAULT_PROFILE_PICTURE} 
+                src={getProfileImage(user.profilePictureUrl)} 
                 alt={user.username} 
                 className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover shadow-sm"
                 onError={(e) => (e.currentTarget.src = DEFAULT_PROFILE_PICTURE)}
